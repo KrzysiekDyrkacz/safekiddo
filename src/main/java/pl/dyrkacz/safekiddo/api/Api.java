@@ -1,6 +1,5 @@
-package pl.dyrkacz.api;
+package pl.dyrkacz.safekiddo.api;
 
-import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
