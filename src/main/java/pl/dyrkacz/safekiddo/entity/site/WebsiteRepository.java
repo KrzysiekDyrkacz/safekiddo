@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface WebsiteRepository extends JpaRepository<Website,String> {
 
+    @Override
+    boolean existsById(String name);
 }

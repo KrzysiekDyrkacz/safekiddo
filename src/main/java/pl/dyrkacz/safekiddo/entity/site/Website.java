@@ -3,6 +3,7 @@ package pl.dyrkacz.safekiddo.entity.site;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import pl.dyrkacz.safekiddo.entity.category.Category;
 
 import javax.persistence.*;
@@ -11,10 +12,10 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
+@ToString
 public class Website {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String siteName;
     @NotNull
     @OneToMany
