@@ -33,7 +33,6 @@ public class CategoryClient {
                 HttpMethod.POST,
                 httpEntity,
                 String.class);
-        System.out.println(entity.getBody());
 
         JSONObject obj = new JSONObject(entity.getBody());
         JSONArray jsonArray = obj.getJSONObject("domain").getJSONArray("categories");
