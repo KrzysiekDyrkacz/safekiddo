@@ -7,6 +7,7 @@ import pl.dyrkacz.safekiddo.entity.category.CategoryServices;
 import pl.dyrkacz.safekiddo.entity.site.Website;
 import pl.dyrkacz.safekiddo.entity.site.WebsiteServices;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,5 +36,11 @@ public class WebsiteController {
 
       return "Add: " + web.getSiteName() + "  " + " with categories:  " + web.getCategory().toString();
 
+    }
+
+    @DeleteMapping("/deleteWebsite/{name}")
+    @Transactional
+    public void deleteWebsite(@PathVariable String name){
+        websiteServices.deleteWebsite(name);
     }
 }

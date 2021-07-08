@@ -57,6 +57,9 @@ public class WebsiteServices {
         }
 
     }
+     public void deleteWebsite(String name){
+        websiteRepository.deleteBySiteName(name);
+     }
 
 
 

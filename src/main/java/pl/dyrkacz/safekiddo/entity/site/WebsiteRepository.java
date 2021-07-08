@@ -8,4 +8,6 @@ public interface WebsiteRepository extends JpaRepository<Website,String> {
 
     @Override
     boolean existsById(String name);
+
+    void deleteBySiteName(String name);
 }
