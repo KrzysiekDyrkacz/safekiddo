@@ -1,5 +1,11 @@
 package pl.dyrkacz.safekiddo.controller;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -10,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 
 
 @RestController
@@ -23,12 +30,17 @@ public class WebsiteController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer "+ jwt);
         HttpEntity httpEntity = new HttpEntity(headers);
-        ResponseEntity<String> entity = restTemplate.exchange("https://www.klazify.com/api/categorize?url=http://interia.pl ",
+        ResponseEntity<String> entity = restTemplate.exchange("https://www.klazify.com/api/categorize?url=http://laco.pl ",
                 HttpMethod.POST,
                 httpEntity,
                 String.class);
-
         System.out.println(entity.getBody());
+
+        JSONObject obj = new JSONObject(entity.getBody());
+
+
+
+        System.out.println(obj.getJSONObject("domain").getJSONArray("categories"));
 
 
     }
