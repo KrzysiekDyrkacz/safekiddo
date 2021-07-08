@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import pl.dyrkacz.safekiddo.entity.site.Website;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,6 +20,7 @@ import java.util.stream.IntStream;
 
 @Service
 public class CategoryClient {
+
     @Value("${token}")
     String token;
 
@@ -42,6 +44,16 @@ public class CategoryClient {
                 .collect(Collectors.toList());
 
     }
+
+    public List<String> getCategoryFromPost(Website website){
+        JSONObject jsonObject = new JSONObject(website);
+        JSONArray jsonArray = jsonObject.getJSONArray("category");
+
+        return IntStream.range(0, jsonArray.length())
+                .mapToObj(index -> ((JSONObject) jsonArray.get(index)).optString("name"))
+                .collect(Collectors.toList());
+
+    };
 
 
 }

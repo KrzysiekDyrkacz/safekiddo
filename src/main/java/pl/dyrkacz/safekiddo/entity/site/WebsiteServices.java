@@ -19,8 +19,10 @@ public class WebsiteServices {
         this.categoryClient = categoryClient;
     }
 
-    public void saveWebsite(Website website) {
+    public Website saveWebsite(Website website) {
         websiteRepository.save(website);
+        return website;
+
     }
 
     public boolean existSiteInDb(String name){
@@ -39,11 +41,23 @@ public class WebsiteServices {
             Website website = new Website();
             website.setSiteName(name);
             website.setCategory(categoryServices.saveIfDoesntExist(categoryClient.getData(name)));
-            saveWebsite(website);
-           return website;
+            return saveWebsite(website);
         }
 
     }
+
+    public Website addWebsiteManual(Website website){
+        if(existSiteInDb(website.getSiteName())){
+            return getWebsiteById(website.getSiteName());
+        }else{
+            Website websiteManual = new Website();
+            websiteManual.setSiteName(website.getSiteName());
+            website.setCategory(categoryServices.saveIfDoesntExist(categoryClient.getCategoryFromPost(website)));
+            return saveWebsite(website);
+        }
+
+    }
+
 
 
 
