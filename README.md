@@ -1,4 +1,4 @@
-Post method example JSON body:
+POST method example JSON body:
 
 {
 "siteName":"test.com",
