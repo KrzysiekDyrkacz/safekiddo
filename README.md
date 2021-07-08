@@ -1,4 +1,4 @@
-Post method default JSON value:
+Post method example JSON body:
 
 {
 "siteName":"test.com",
