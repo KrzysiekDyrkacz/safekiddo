@@ -2,9 +2,12 @@ package pl.dyrkacz.safekiddo.entity.site;
 
 import org.springframework.stereotype.Service;
 import pl.dyrkacz.safekiddo.client.CategoryClient;
+import pl.dyrkacz.safekiddo.entity.category.Category;
 import pl.dyrkacz.safekiddo.entity.category.CategoryServices;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class WebsiteServices {
@@ -25,19 +28,19 @@ public class WebsiteServices {
 
     }
 
-    public boolean existSiteInDb(String name){
+    public boolean existSiteInDb(String name) {
         return websiteRepository.existsById(name);
     }
-    public Website getWebsiteById(String name){
-       return websiteRepository.getById(name);
+
+    public Website getWebsiteById(String name) {
+        return websiteRepository.getById(name);
     }
 
 
     public Website getWebsite(String name) throws IOException {
-        if(existSiteInDb(name)){
+        if (existSiteInDb(name)) {
             return getWebsiteById(name);
-        }
-        else{
+        } else {
             Website website = new Website();
             website.setSiteName(name);
             website.setCategory(categoryServices.saveIfDoesntExist(categoryClient.getData(name)));
@@ -46,10 +49,10 @@ public class WebsiteServices {
 
     }
 
-    public Website addWebsiteManual(Website website){
-        if(existSiteInDb(website.getSiteName())){
+    public Website addWebsiteManual(Website website) {
+        if (existSiteInDb(website.getSiteName())) {
             return getWebsiteById(website.getSiteName());
-        }else{
+        } else {
             Website websiteManual = new Website();
             websiteManual.setSiteName(website.getSiteName());
             website.setCategory(categoryServices.saveIfDoesntExist(categoryClient.getCategoryFromPost(website)));
@@ -57,11 +60,27 @@ public class WebsiteServices {
         }
 
     }
-     public void deleteWebsite(String name){
+
+    public void deleteWebsite(String name) {
         websiteRepository.deleteBySiteName(name);
-     }
+    }
 
 
+    public void updateWebsite(String id, List<Category> categories) {
+        List<String> categoriesList = new ArrayList<>();
+
+        for (Category cat : categories) {
+            categoriesList.add(cat.getName());
+        }
+        List<Category> categoriesToUpdate = categoryServices.saveIfDoesntExist(categoriesList);
+
+
+        Website websiteUpdate = getWebsiteById(id);
+        websiteUpdate.setCategory(categoriesToUpdate);
+        saveWebsite(websiteUpdate);
+
+
+    }
 
 
 }

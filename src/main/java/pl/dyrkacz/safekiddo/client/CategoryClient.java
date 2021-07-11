@@ -45,7 +45,7 @@ public class CategoryClient {
 
     }
 
-    public List<String> getCategoryFromPost(Website website){
+    public List<String> getCategoryFromPost(Website website) {
         JSONObject jsonObject = new JSONObject(website);
         JSONArray jsonArray = jsonObject.getJSONArray("category");
 
@@ -53,7 +53,9 @@ public class CategoryClient {
                 .mapToObj(index -> ((JSONObject) jsonArray.get(index)).optString("name"))
                 .collect(Collectors.toList());
 
-    };
+    }
+
+    ;
 
 
 }

@@ -6,7 +6,9 @@ import lombok.Setter;
 import lombok.ToString;
 import pl.dyrkacz.safekiddo.entity.category.Category;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
