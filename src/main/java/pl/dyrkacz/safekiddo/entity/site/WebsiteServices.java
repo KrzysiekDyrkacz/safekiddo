@@ -74,12 +74,9 @@ public class WebsiteServices {
         }
         List<Category> categoriesToUpdate = categoryServices.saveIfDoesntExist(categoriesList);
 
-
         Website websiteUpdate = getWebsiteById(id);
         websiteUpdate.setCategory(categoriesToUpdate);
         saveWebsite(websiteUpdate);
-
-
     }
 
 
