@@ -29,36 +29,22 @@ public class CategoryClient {
 //    String token;
 
     public List<String> getData(String siteName) throws IOException {
-//        URL url = new URL("https://www.klazify.com/api/categorize?url=https://" + siteName);
-//
-//        RestTemplate restTemplate = new RestTemplate();
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("Authorization", "Bearer " + token);
-//        headers.add("Accept","application/json");
-//        headers.add("Content-Type","application/json");
-//        headers.add("cache-control","no-cache");
-//        HttpEntity httpEntity = new HttpEntity(headers);
-//        ResponseEntity<String> entity = restTemplate.exchange(url.toString(),
-//                HttpMethod.POST,
-//                httpEntity,
-//                String.class);
+
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
         Map map = new HashMap<String, String>();
-        map.put("Content-Type", "application/json");
+//        map.put("Content-Type", "application/json");
         map.put("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTMwZjE0OTJkYmI4MDdjMGY2YzAwOWIwM2E0MWY5YzJkZDQ0MTU2OWU5NDIyMjQ1ZDE3ZjM5M2RmNGU1MmUwZmY3YzYzZjllNWQ0ZDM4MDgiLCJpYXQiOjE2MjU2ODY3NDQsIm5iZiI6MTYyNTY4Njc0NCwiZXhwIjoxNjU3MjIyNzQ0LCJzdWIiOiIyOTQ0Iiwic2NvcGVzIjpbXX0.qdGt0P5OMAtSbYNAI2Wg6kGUqWCXq29d9O7j8pTAnZciGkGmGT9pBbv401--t7Cmh1kprfcps5YyMlvib7G2CQ");
-
+        map.put("Accept","application/json");
+//        map.put("cache-control","no-cache");
         headers.setAll(map);
 
-        Map req_payload = new HashMap();
+        Map req_payload = new HashMap<String,String>();
         req_payload.put("url", "https://"+siteName);
 
         HttpEntity<?> request = new HttpEntity<>(req_payload, headers);
-        String url = "https://www.klazify.com/api/categorize/";
+        String url = "https://www.klazify.com/api/categorize";
 
         ResponseEntity<String> entity = new RestTemplate().postForEntity(url, request, String.class);
-
-
-
 
         JSONObject obj = new JSONObject(entity.getBody());
         JSONArray jsonArray = obj.getJSONObject("domain").getJSONArray("categories");
