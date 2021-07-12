@@ -25,7 +25,7 @@ public class CategoryClient {
     String token;
 
     public List<String> getData(String siteName) throws IOException {
-        URL url = new URL("https://www.klazify.com/api/categorize?url=http://" + siteName);
+        URL url = new URL("https://www.klazify.com/api/categorize?url=https://" + siteName);
 
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
