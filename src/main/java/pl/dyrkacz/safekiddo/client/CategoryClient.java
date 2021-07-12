@@ -8,12 +8,16 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import pl.dyrkacz.safekiddo.entity.site.Website;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -25,19 +29,36 @@ public class CategoryClient {
     String token;
 
     public List<String> getData(String siteName) throws IOException {
-        URL url = new URL("https://www.klazify.com/api/categorize?url=https://" + siteName);
+//        URL url = new URL("https://www.klazify.com/api/categorize?url=https://" + siteName);
+//
+//        RestTemplate restTemplate = new RestTemplate();
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Authorization", "Bearer " + token);
+//        headers.add("Accept","application/json");
+//        headers.add("Content-Type","application/json");
+//        headers.add("cache-control","no-cache");
+//        HttpEntity httpEntity = new HttpEntity(headers);
+//        ResponseEntity<String> entity = restTemplate.exchange(url.toString(),
+//                HttpMethod.POST,
+//                httpEntity,
+//                String.class);
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
+        Map map = new HashMap<String, String>();
+        map.put("Content-Type", "application/json");
+        map.put("Authorization", "Bearer " + token);
 
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer " + token);
-        headers.add("Accept","application/json");
-        headers.add("Content-Type","application/json");
-        headers.add("cache-control","no-cache");
-        HttpEntity httpEntity = new HttpEntity(headers);
-        ResponseEntity<String> entity = restTemplate.exchange(url.toString(),
-                HttpMethod.POST,
-                httpEntity,
-                String.class);
+        headers.setAll(map);
+
+        Map req_payload = new HashMap();
+        req_payload.put("url", "https://"+siteName);
+
+        HttpEntity<?> request = new HttpEntity<>(req_payload, headers);
+        String url = "https://www.klazify.com/api/categorize";
+
+        ResponseEntity<String> entity = new RestTemplate().postForEntity(url, request, String.class);
+
+
+
 
         JSONObject obj = new JSONObject(entity.getBody());
         JSONArray jsonArray = obj.getJSONObject("domain").getJSONArray("categories");
