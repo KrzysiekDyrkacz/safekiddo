@@ -30,6 +30,9 @@ public class CategoryClient {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + token);
+        headers.add("Accept","application/json");
+        headers.add("Content-Type","application/json");
+        headers.add("cache-control","no-cache");
         HttpEntity httpEntity = new HttpEntity(headers);
         ResponseEntity<String> entity = restTemplate.exchange(url.toString(),
                 HttpMethod.POST,
