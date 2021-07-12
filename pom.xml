@@ -14,7 +14,7 @@
     <name>safekiddo</name>
     <description>Demo project for SafeKiddo</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>8</java.version>
     </properties>
     <dependencies>
         <dependency>
