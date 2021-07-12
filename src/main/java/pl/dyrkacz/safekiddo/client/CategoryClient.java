@@ -53,7 +53,7 @@ public class CategoryClient {
         req_payload.put("url", "https://"+siteName);
 
         HttpEntity<?> request = new HttpEntity<>(req_payload, headers);
-        String url = "https://www.klazify.com/api/categorize";
+        String url = "https://www.klazify.com/api/categorize/";
 
         ResponseEntity<String> entity = new RestTemplate().postForEntity(url, request, String.class);
 
